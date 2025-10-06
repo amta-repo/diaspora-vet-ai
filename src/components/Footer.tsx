@@ -13,7 +13,7 @@ export const Footer = () => {
                   <span className="text-white font-bold text-sm">D</span>
                 </div>
                 <span className="font-bold text-lg text-foreground">
-                  diadda<span className="text-primary">.com</span>
+                  DIADDA<span className="text-primary">.com</span>
                 </span>
               </div>
               <p className="text-sm text-muted-foreground">
