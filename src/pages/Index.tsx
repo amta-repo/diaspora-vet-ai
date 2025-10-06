@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { DetailedPitch } from "@/components/DetailedPitch";
 import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
 import { WaitlistForm } from "@/components/WaitlistForm";
@@ -18,6 +19,7 @@ const Index = () => {
       
       <main>
         <Hero onCTAClick={scrollToWaitlist} />
+        <DetailedPitch onCTAClick={scrollToWaitlist} />
         <Features />
         <HowItWorks />
         

@@ -46,6 +46,10 @@ export const Hero = ({ onCTAClick }: HeroProps) => {
                 variant="outline" 
                 size="lg"
                 className="bg-background/50 backdrop-blur-sm hover:bg-background"
+                onClick={() => {
+                  const aboutSection = document.getElementById('about');
+                  aboutSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 Learn More
               </Button>

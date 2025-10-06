@@ -16,7 +16,7 @@ export const Header = ({ onCTAClick }: HeaderProps) => {
               <span className="text-white font-bold text-sm">D</span>
             </div>
             <span className="font-bold text-xl text-foreground">
-              DIADDA<span className="text-primary">.com</span>
+              DIADDA
             </span>
           </div>
           
