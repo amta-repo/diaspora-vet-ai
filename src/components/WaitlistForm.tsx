@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const countries = [
   "United States", "United Kingdom", "Canada", "Germany", "France", 
@@ -41,7 +42,7 @@ export const WaitlistForm = () => {
     consent: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.email || !formData.consent) {
@@ -53,14 +54,31 @@ export const WaitlistForm = () => {
       return;
     }
 
-    // In production, this would send to backend/Google Sheets/Airtable
-    console.log("Waitlist submission:", formData);
-    
-    setSubmitted(true);
-    toast({
-      title: "Welcome to the Waitlist! 🎉",
-      description: "We'll notify you when early access opens.",
-    });
+    try {
+      const { error } = await supabase.from('waitlist').insert({
+        name: formData.fullName || 'Anonymous',
+        email: formData.email,
+        country: formData.country || 'Not specified',
+        investment_interest: formData.investmentInterest.length > 0 ? formData.investmentInterest : ['Not specified'],
+        investment_amount: formData.amountRange || 'Not specified',
+        consent: formData.consent,
+      });
+
+      if (error) throw error;
+
+      setSubmitted(true);
+      toast({
+        title: "Welcome to the Waitlist! 🎉",
+        description: "We'll notify you when early access opens.",
+      });
+    } catch (error) {
+      console.error("Error submitting to waitlist:", error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error joining the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const toggleInterest = (interest: string) => {
